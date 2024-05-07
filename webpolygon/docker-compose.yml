@@ -5,13 +5,15 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/postgres_data
     environment:
-      - POSTGRES_DB: webpolygon
-      - POSTGRES_USER: postgres
-      - POSTGRES_PASSWORD: test
+      - POSTGRES_DB=webpolygon
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test
   
   web:
-    build: .
-    command: gunicorn webpolygon.wsqi:application --bind 0.0.0.0:8000
+    build: 
+      context: .
+      dockerfile: DockerFile
+    command: gunicorn webpolygon.wsgi:application --bind 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
@@ -19,6 +21,6 @@ services:
     depends_on:
       - db
     environment:
-      - DATABASE_URL: postgres://postgres.test@db:5432/webpolygon
+      - DATABASE_URL=postgres://postgres.test@db:5432/webpolygon
 volumes:
   postgres_data:
