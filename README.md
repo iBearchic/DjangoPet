@@ -59,3 +59,21 @@ DATABASES = {
     }
 }
 ```
+
+## USER CASES
+
+### Вход в API
+
+![Image](images/homedir.png)
+
+### DRF list
+
+![Image](images/polygonsGetDRF.png)
+
+### Add URL
+
+![Image](images/addNewURL.png)
+
+### DRF get call after adding
+
+![Image](images/afterAdding.png)
