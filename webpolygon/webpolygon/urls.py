@@ -14,11 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path
-from polygons.views import add_polygon
+
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from polygons.views import PolygonViewSet, add_polygon
+
+router = DefaultRouter()
+router.register(r'polygons', PolygonViewSet)
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", add_polygon, name="add_polygon")
+    path('add/', add_polygon, name='add_polygon'), # URL для предоставления формы и отправки данных
+    path('', include(router.urls)), # URL-адреса для API, предосталвяемые DRF
 ]
