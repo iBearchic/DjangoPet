@@ -1,0 +1,18 @@
+FROM python:3.11-slim
+
+# Рабочая среда контейнера
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Открываем порт 8000
+EXPOSE 8000
+
+# Запуск приложения
+CMD [ "gunicorn", "--bind", "0.0.0.0:8000", "webpolygon.wsgi:application" ]
